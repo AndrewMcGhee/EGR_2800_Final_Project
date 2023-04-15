@@ -1,21 +1,33 @@
-// Arduino's pin connected to OUT pin of IR obstacle avoidance sensor
-#define SENSOR_PIN  7
+// Pins
+#define SENSOR_PIN_0  A4
+#define SENSOR_PIN_1  A5
 
-void setup() {
+#define CHECK_DELAY  100
+
+
+void
+setup() {
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
   // initialize the Arduino's pin as aninput
   pinMode(SENSOR_PIN, INPUT);
 }
 
-void loop() {
+void
+loop() {
   // read the state of the the input pin:
-  int state = digitalRead(SENSOR_PIN);
+  int state0 = digitalRead(SENSOR_PIN_0);
+  int state1 = digitalRead(SENSOR_PIN_1);
 
-  if (state == LOW)
+  if (state0 == LOW)
     Serial.println("The obstacle is present");
   else
     Serial.println("The obstacle is NOT present");
 
-  delay(100);
+  if (state1 == LOW)
+    Serial.println("The obstacle is present");
+  else
+    Serial.println("The obstacle is NOT present");
+
+  delay(CHECK_DELAY);
 }

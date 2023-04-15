@@ -1,26 +1,36 @@
 #include <Servo.h>
 
+#define ROTATE_DELAY 1000
+
 Servo servo;  // create servo object to control a servo
+Servo servo1;
 
-int pos = 0;    // variable to store the servo position
 
-void setup() {
-  servo.attach(9);  // attaches the servo on pin 9 to the servo object
+void
+setup() {
+  servo.attach( 6 );  // attaches servo
+  servo1.attach( 9 );
+
 }
 
-void loop() {
-  for (pos = 0; pos <= 90; pos += 1) { // rotate from 0 degrees to 180 degrees
+void
+loop() {
+  int pos = 0;    // variable to store the servo position
+
+  for ( pos = 0; pos <= 90; pos += 1 ) { // rotate from 0 degrees to 180 degrees
     // in steps of 1 degree
-    servo.write(pos);                   // tell servo to go to position in variable 'pos'
-    delay(5);                          // waits 10ms for the servo to reach the position
+    servo.write( pos );
+    servo1.write( pos );                   // tell servo to go to position in variable 'pos'
+    delay( 5 );                          // wait for the servo to reach the position
   }
 
-  delay(1000);
+  delay( ROTATE_DELAY );
 
-  for (pos = 90; pos >= 0; pos -= 1) { // rotate from 180 degrees to 0 degrees
-    servo.write(pos);                   // tell servo to go to position in variable 'pos'
-    delay(5);                          // waits 10ms for the servo to reach the position
+  for ( pos = 90; pos >= 0; pos -= 1 ) { // rotate from 180 degrees to 0 degrees
+    servo.write( pos );
+    servo1.write( pos );              // tell servo to go to position in variable 'pos'
+    delay( 5 );
   }
 
-  delay(1000);
+  delay(ROTATE_DELAY);
 }
