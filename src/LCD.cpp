@@ -1,3 +1,4 @@
+#include <cstring>
 #include <LiquidCrystal.h>
 #include "../include/LCD.hpp"
 
@@ -18,11 +19,11 @@ LCD__staticMessage( const char* message, unsigned char column, unsigned char row
 }
 
 void
-LCD__scrollMessage( const char* message, size_t messageSize, unsigned char line, int charDelay ){
+LCD__scrollMessage( const char* message, unsigned char row, int charDelay ){
   lcd.setCursor( 16, line );
   lcd.autoscroll();
 
-  for( size_t thisChar = 0; thisChar < messageSize; thisChar++ ){
+  for( size_t thisChar = 0; thisChar < strlen( message ); thisChar++ ){
     lcd.print( thisChar );
     delay( charDelay );
   }
@@ -35,8 +36,8 @@ LCD__scrollMessage( const char* message, size_t messageSize, unsigned char line,
 }
 
 void
-LCD__scrollWithStatic( const char* staticMessage, const char* scrollMessage, size_t scrollMsgSize,
-                       unsigned char colStatic, unsigned char rowStatic, int charDelay ){
+LCD__scrollWithStatic( const char* staticMessage, const char* scrollMessage, unsigned char colStatic,
+                       unsigned char rowStatic, int charDelay ){
   // Static:
   lcd.setCursor( colStatic, rowStatic );
   lcd.print( message );
@@ -53,7 +54,7 @@ LCD__scrollWithStatic( const char* staticMessage, const char* scrollMessage, siz
 
   lcd.autoscroll();
 
-  for( size_t thisChar = 0; thisChar < scrollMsgSize; thisChar++ ){
+  for( size_t thisChar = 0; thisChar < strlen( scrollMessage ); thisChar++ ){
     lcd.print( thisChar );
     delay( charDelay );
   }

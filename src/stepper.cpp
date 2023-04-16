@@ -12,10 +12,10 @@
 
 
 // Initialize with pin sequence IN1-IN3-IN2-IN4 for using the AccelStepper library with 28BYJ-48 stepper motor:
-AccelStepper stepper = AccelStepper(MotorInterfaceType, motorPin1, motorPin3, motorPin2, motorPin4);
+AccelStepper stepper = AccelStepper(MotorInterfaceType, MOTOR_PIN1, MOTOR_PIN3, MOTOR_PIN2, MOTOR_PIN4);
 
 void
-stepper__setMaxSpeed() {
+stepper__init() {
   stepper.setMaxSpeed( STEPS_SEC ); // Set the maximum steps per second:
 }
 

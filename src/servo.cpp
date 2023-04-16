@@ -27,5 +27,5 @@ servo__rotate( const Servo& servo, int startPos, int endPos ) {
     delay( 5 );
   }
 
-  delay(ROTATE_DELAY);
+  delay(ROTATE_DELAY); //TODO: do we need this?
 }
