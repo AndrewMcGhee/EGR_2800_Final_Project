@@ -3,29 +3,27 @@
 
 #define ROTATE_DELAY 1000
 
-Servo servo;  // create servo object to control a servo
-
 
 void
-servo__attach( int* servo_pin ) {
-  servo.attach( SERVO0 );  // attaches servo
-
+servo__init( const Servo& servo, const int servoPin, int startPos ) {
+  servo.attach( servoPin );  // attaches servo
+  servo.write( startPos );
 }
 
-void
-servo__rotate( int* servo_pin ) {
-  int pos = 0;    // variable to store the servo position
 
-  for ( pos = 0; pos <= 90; pos += 1 ) { // rotate from 0 degrees to 90 degrees
-    // in steps of 1 degree
-    &servo_pin.write( pos );             // tell servo to go to position in variable 'pos'
+void
+servo__rotate( const Servo& servo, int startPos, int endPos ) {
+  int pos = startPos;
+
+  for ( pos = startPos; pos <= endPos; pos += 1 ) { // rotate from 0 degrees to 90 degrees
+    servo.write( pos );             // tell servo to go to position in variable 'pos'
     delay( 5 );                          // wait for the servo to reach the position
   }
 
   delay( ROTATE_DELAY );
 
-  for ( pos = 90; pos >= 0; pos -= 1 ) { // rotate from 90 degrees to 0 degrees
-    &servo_pin.write( pos );             // tell servo to go to position in variable 'pos'
+  for ( pos = endPos; pos >= startPos; pos -= 1 ) { // rotate from 90 degrees to 0 degrees
+    servo.write( pos );             // tell servo to go to position in variable 'pos'
     delay( 5 );
   }
 

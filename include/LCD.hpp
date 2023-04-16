@@ -11,7 +11,8 @@
 #define D7   2
 
 void LCD__setup(); // Put in setup()
-void LCD__staticMessage( const char* message, unsigned char line ); // Put in loop()
+void LCD__staticMessage( const char* message, unsigned char column, unsigned char row );
 void LCD__scrollMessage( const char* message, size_t messageSize, unsigned char line, int charDelay ); // Put in loop()
-
+void LCD__scrollWithStatic( const char* staticMessage, const char* scrollMessage, size_t scrollMsgSize,
+                       unsigned char colStatic, unsigned char rowStatic, int charDelay );
 #endif // LCD_H_

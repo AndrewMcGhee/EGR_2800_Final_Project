@@ -8,6 +8,7 @@
 #define C1  A2
 #define C2  A3
 
-unsigned char keypad__iskeyPressed(); // Put in loop()
+char keypad__getKeyPressed(); // Put in loop()
+unsigned char keypad__isAnyKeyPressed(); // Put in loop()
 
 #endif // KEYPAD_H_

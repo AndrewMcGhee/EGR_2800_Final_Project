@@ -3,7 +3,6 @@
  * https://www.airspayce.com/mikem/arduino/AccelStepper/classAccelStepper.html#a5dce13ab2a1b02b8f443318886bf6fc5
 */
 
-
 #include <AccelStepper.h>
 #include "../include/stepper.hpp"
 
