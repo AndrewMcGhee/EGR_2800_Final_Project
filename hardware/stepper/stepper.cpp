@@ -3,13 +3,9 @@
  * https://www.airspayce.com/mikem/arduino/AccelStepper/classAccelStepper.html#a5dce13ab2a1b02b8f443318886bf6fc5
 */
 
-#include <AccelStepper.h>
 
-// Pin definitions:
-#define motorPin1  13     // IN1 on the ULN2003 driver
-#define motorPin2  10     // IN2 on the ULN2003 driver
-#define motorPin3   8     // IN3 on the ULN2003 driver
-#define motorPin4   7     // IN4 on the ULN2003 driver
+#include <AccelStepper.h>
+#include "stepper.hpp"
 
 #define NUMREV 8.066
 #define STEPS_SEC 1000
@@ -20,25 +16,22 @@
 AccelStepper stepper = AccelStepper(MotorInterfaceType, motorPin1, motorPin3, motorPin2, motorPin4);
 
 void
-setup() {
-  // Set the maximum steps per second:
-  stepper.setMaxSpeed( STEPS_SEC );
+stepper__setMaxSpeed() {
+  stepper.setMaxSpeed( STEPS_SEC ); // Set the maximum steps per second:
 }
 
 void
-loop() {
+stepper__run() {
   // Set the current position to 0:
   stepper.setCurrentPosition(0);
 
-  // Run the motor forward at 500 steps/second until the motor reaches 4096 steps (1 revolution):
+  // Run the motor forward at 1000 steps/second until the motor reaches 4096 steps * NUMREV:
   while (stepper.currentPosition() != ( NUMREV * 4096 ) ) {
     stepper.setSpeed( STEPS_SEC );
     stepper.runSpeed();
   }
 
-  //delay(1000);
-
-  stepper.setCurrentPosition(0); // Reset the position to 0
+  stepper.setCurrentPosition(0);
 
   //delay(3000);
 }

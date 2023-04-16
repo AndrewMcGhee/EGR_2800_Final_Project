@@ -1,4 +1,5 @@
 #include <Keypad.h>
+#include "keypad.hpp"
 
 // Row/column definition
 #define ROW_NUM      2
@@ -15,16 +16,9 @@ byte pin_column[COLUMN_NUM] = { A2, A3 }; //connect to the column pinouts of the
 Keypad keypad = Keypad( makeKeymap( keys ), pin_rows, pin_column, ROW_NUM, COLUMN_NUM );
 
 
-void
-setup(){
-  Serial.begin(9600);
-}
-
-void
-loop(){
-  char key = keypad.getKey();
-
-  if (key){
-    Serial.println(key);
+unsigned char
+keypad__iskeyPressed(){
+  if ( ( char key = keypad.getKey() ) ){
+    return key;
   }
 }
