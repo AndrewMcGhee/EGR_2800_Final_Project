@@ -1,5 +1,5 @@
 #include <Servo.h>
-#include "servo.hpp"
+#include "../include/servo.hpp"
 
 #define ROTATE_DELAY 1000
 

@@ -1,5 +1,5 @@
 #include <LiquidCrystal.h>
-#include "LCD.hpp"
+#include "../include/LCD.hpp"
 
 LiquidCrystal lcd(RS, EN, D4, D5, D6, D7);
 

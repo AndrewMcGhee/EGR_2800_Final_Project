@@ -1,4 +1,4 @@
-#include "ir_sensor.hpp"
+#include "../include/ir_sensor.hpp"
 #define POLL_RATE 100
 
 

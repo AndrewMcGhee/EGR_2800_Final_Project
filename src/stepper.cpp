@@ -5,7 +5,7 @@
 
 
 #include <AccelStepper.h>
-#include "stepper.hpp"
+#include "../include/stepper.hpp"
 
 #define NUMREV 8.066
 #define STEPS_SEC 1000
