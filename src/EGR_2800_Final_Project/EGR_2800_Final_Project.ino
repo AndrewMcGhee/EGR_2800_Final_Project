@@ -1,4 +1,4 @@
-#include "../include/Question_Selection.ino"
+#include "../include/Question_Selection.h"
 #include "../include/LCD.hpp"
 #include "../include/Question_Selection.h"
 #include "../include/ir_sensor.hpp"
@@ -61,17 +61,22 @@ displayGreeting(){
 
 void
 pickGenre(){
-  // Drop the ball to the first position  TODO: should we do this at some other point?
-  servo__rotate( servo0, 0, 90 );
 
   // Prompt user to pick genre
   while( 1 ){
-    LCD__scrollWithStatic( "Pick Genre:", "TODO: genre list here", 0, 0, 500 );
+    LCD__scrollWithStatic( "Pick Genre:", "(1) Math (2) Geography (4) Biology (5) Fun Trivia", 0, 0, 500 );
+  
+    // Drop the ball to the first position  TODO: should we do this at some other point?
+    //servo__rotate( servo0, 0, 90 );
 
     // Get user input
     switch( keypad__getKeyPressed() ){
+
+      // Would this be the place to make the ball move into position? Based on answer it would go back up or into collection.
+  
     case 1:
       // Get question from question selection + prompt user to answer
+
       answerQuestion(); //question goes here ;
       break;
 
