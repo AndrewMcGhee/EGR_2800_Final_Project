@@ -1,6 +1,5 @@
-#include "../include/Question_Selection.h"
+#include "../include/Question_Selection.hpp"
 #include "../include/LCD.hpp"
-#include "../include/Question_Selection.h"
 #include "../include/ir_sensor.hpp"
 #include "../include/keypad.hpp"
 #include "../include/servo.hpp"
@@ -51,7 +50,7 @@ void
 displayGreeting(){
   // Display greeting + wait for input
   while ( keypad__getKeyPressed() != 1 )
-    LCD__scrollWithStatic( "Welcome!", "Press 1 to Start", 0, 0, 500 );
+    LCD__scrollWithStatic( "Welcome!", "Press 1 to Start", 300 );
 
     pickGenre();
 
@@ -61,10 +60,10 @@ displayGreeting(){
 
 void
 pickGenre(){
-
   // Prompt user to pick genre
   while( 1 ){
-    LCD__scrollWithStatic( "Pick Genre:", "(1) Math (2) Geography (4) Biology (5) Fun Trivia", 0, 0, 500 );
+    LCD__scrollWithStatic( "Pick Genre:", "(1) Math (2) Geography", 300 );
+    LCD__scrollWithStatic( "Pick Genre:", "(4) Biology (5) Fun Trivia", 300 );
   
     // Drop the ball to the first position  TODO: should we do this at some other point?
     //servo__rotate( servo0, 0, 90 );
@@ -107,7 +106,7 @@ void
 answerQuestion( const char* question ){
   // Give user question
   while( 1 ){
-    LCD__scrollWithStatic( "T/F (1/2):", question, 0, 0, 500 );
+    LCD__scrollWithStatic( "1 True | 2 False", question, 300 );
 
     // Get user input
     if( keypad__getKeyPressed == "TODO: put correct answer here" )
