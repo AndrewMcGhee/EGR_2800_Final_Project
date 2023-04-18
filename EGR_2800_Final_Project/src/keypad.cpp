@@ -15,6 +15,10 @@ byte pin_column[COLUMN_NUM] = { A2, A3 }; //connect to the column pinouts of the
 
 Keypad keypad = Keypad( makeKeymap( keys ), pin_rows, pin_column, ROW_NUM, COLUMN_NUM );
 
+unsigned char
+keypad__keyStateChanged(){
+  return keypad.keyStateChanged();
+}
 
 char
 keypad__getKeyPressed(){
