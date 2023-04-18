@@ -18,14 +18,12 @@ Keypad keypad = Keypad( makeKeymap( keys ), pin_rows, pin_column, ROW_NUM, COLUM
 
 char
 keypad__getKeyPressed(){
-  if ( ( char key = keypad.getKey() ) ){
+  if ( char key = keypad.getKey() )
     return key;
-  }
 }
 
 unsigned char
 keypad__isAnyKeyPressed(){
-  if ( ( char key = keypad.keyStateChanged() ) ){
+  if ( unsigned char key = keypad.keyStateChanged() )
     return key;
-  }
 }

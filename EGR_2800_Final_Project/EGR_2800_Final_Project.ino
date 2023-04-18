@@ -1,9 +1,9 @@
-#include "../include/Question_Selection.hpp"
-#include "../include/LCD.hpp"
-#include "../include/ir_sensor.hpp"
-#include "../include/keypad.hpp"
-#include "../include/servo.hpp"
-#include "../include/stepper.hpp"
+#include "include/Question_Selection.hpp"
+#include "include/LCD.hpp"
+#include "include/ir_sensor.hpp"
+#include "include/keypad.hpp"
+#include "include/servo.hpp"
+#include "include/stepper.hpp"
 
 void displayGreeting();
 void pickGenre();
@@ -49,13 +49,14 @@ loop() {
 void
 displayGreeting(){
   // Display greeting + wait for input
-  while ( keypad__getKeyPressed() != 1 )
+  while ( keypad__getKeyPressed() != 1 ){
     LCD__scrollWithStatic( "Welcome!", "Press 1 to Start", 300 );
 
     pickGenre();
 
     if( isUserDone == 1 )
       break;
+  }
 }
 
 void
@@ -94,7 +95,7 @@ pickGenre(){
       answerQuestion(); //question goes here
       break;
 
-    case default: break;
+    default: break;
     }
 
     if( isUserDone == 1 )
@@ -109,7 +110,7 @@ answerQuestion( const char* question ){
     LCD__scrollWithStatic( "1 True | 2 False", question, 300 );
 
     // Get user input
-    if( keypad__getKeyPressed == "TODO: put correct answer here" )
+    if( keypad__getKeyPressed() == 1 ) //TODO: put correct answer here?
       userWins();
     else
       userLoses();

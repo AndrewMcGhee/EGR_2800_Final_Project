@@ -10,10 +10,11 @@ ir__checkObstacle( const int pin ){
   switch( state ){
     case 0:
       return 1; // Obstacle present
-      break;
-    case default:
+    break;
+
+    default:
       return 0; // Obstacle not present
-      break;
+    break;
   }
 
   delay( POLL_RATE );

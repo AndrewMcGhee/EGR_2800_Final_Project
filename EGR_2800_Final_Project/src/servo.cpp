@@ -5,14 +5,14 @@
 
 
 void
-servo__init( const Servo& servo, const int servoPin, int startPos ) {
+servo__init( Servo servo, const int servoPin, int startPos ) {
   servo.attach( servoPin );  // attaches servo
   servo.write( startPos );
 }
 
 
 void
-servo__rotate( const Servo& servo, int startPos, int endPos ) {
+servo__rotate( Servo servo, int startPos, int endPos ) {
   int pos = startPos;
 
   for ( pos = startPos; pos <= endPos; pos += 1 ) { // rotate from 0 degrees to 90 degrees
