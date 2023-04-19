@@ -1,9 +1,9 @@
-#include "include/Question_Selection.hpp"
+//#include "include/Question_Selection.hpp"
 #include "include/LCD.hpp"
 #include "include/ir_sensor.hpp"
-#include "include/keypad.hpp"
 #include "include/servo.hpp"
 #include "include/stepper.hpp"
+#include "include/keypad.hpp"
 
 void displayGreeting();
 void pickGenre();
@@ -26,11 +26,17 @@ void
 setup() {
   // Initializations:
   LCD__setup();
-  servo__init( servo0, SERVO0, 0 ); // TODO: where should we define pins?
-  servo__init( servo1, SERVO1, 90 );
-  stepper__init();
+  //servo__init( servo0, SERVO0, 0 ); // TODO: where should we define pins?
+  //servo__init( servo1, SERVO1, 90 );
+  //stepper__init();
 }
 
+void
+loop() {
+
+  LCD__scrollWithStatic( "Welcome!", "Press 1 to Start", 300 );
+}
+/*
 void
 loop() {
   LCD__clear(); // Clear the screen of previous messages
@@ -49,19 +55,19 @@ loop() {
 
   displayGreeting();
 }
+*/
 
 void
 displayGreeting(){
   LCD__clear(); // Clear the screen of previous messages
 
   // Display greeting + wait for input
-  while ( char didKeyChange = keypad__keyStateChanged() != 1 )
-  //  LCD__scrollWithStatic( "Welcome!", "Press 1 to Start", 300 );
+  while ( 1 ){
+      LCD__scrollWithStatic( "Welcome!", "Press 1 to Start", 300 );
+     // if( keypad__getKey() == 1 )
+      //  break;
+  }
 
-  //debug code
-  delay( 1000 );
-  while( ir__checkObstacle( SENSOR_PIN_0 ) != 1 )
-    LCD__scrollWithStatic( "Welcome!", "Press 1 to Start", 300 );
   pickGenre();
 }
 
@@ -70,26 +76,19 @@ pickGenre(){
   LCD__clear(); // Clear the screen of previous messages
 
   // Prompt user to pick genre
-  //while( 1 ){
-  //  LCD__scrollWithStatic( "Pick Genre:", "(1) Math (2) Geography", 300 );
-  //  LCD__clear(); // Clear the screen of previous messages
-  //  LCD__scrollWithStatic( "Pick Genre:", "(4) Biology (5) Fun Trivia", 300 );
-  //  LCD__clear(); // Clear the screen of previous messages
-
-  //debug code
-  delay( 1000 );
-  while( ir__checkObstacle( SENSOR_PIN_0 ) != 1 ){
+  while( 1 ){
     LCD__scrollWithStatic( "Pick Genre:", "(1) Math (2) Geography", 300 );
     LCD__clear(); // Clear the screen of previous messages
     LCD__scrollWithStatic( "Pick Genre:", "(4) Biology (5) Fun Trivia", 300 );
     LCD__clear(); // Clear the screen of previous messages
-  }
-    answerQuestion();
+
+    //answerQuestion();
 
     // Drop the ball to the first position  TODO: should we do this at some other point?
     //servo__rotate( servo0, 0, 90 );
 
     // Get user input
+    /*
     switch( keypad__getKeyPressed() ){
 
       // Would this be the place to make the ball move into position? Based on answer it would go back up or into collection.
@@ -117,11 +116,11 @@ pickGenre(){
 
     default: break;
     }
-
+    */
     //if( isUserDone == 1 )
     //  break;
   }
-//}
+}
 
 void
 answerQuestion(){
@@ -130,7 +129,7 @@ answerQuestion(){
   //debug code
   delay( 1000 );
   while( ir__checkObstacle( SENSOR_PIN_0 ) != 1 )
-    LCD__scrollWithStatic( "1 True | 2 False", "Is my shirt white", 300 );
+    LCD__scrollWithStatic( "1 True | 2 False", "Test Question", 300 );
   userWins();
 
   // Give user question

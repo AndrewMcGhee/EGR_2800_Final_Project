@@ -7,7 +7,7 @@
 
 char keys[ROW_NUM][COLUMN_NUM] = {
   { '1','2' },
-  { '4','5' },
+  { '4','5' }
 };
 
 byte pin_rows[ROW_NUM] = { A0, A1 }; //connect to the row pinouts of the keypad
@@ -15,19 +15,14 @@ byte pin_column[COLUMN_NUM] = { A2, A3 }; //connect to the column pinouts of the
 
 Keypad keypad = Keypad( makeKeymap( keys ), pin_rows, pin_column, ROW_NUM, COLUMN_NUM );
 
-unsigned char
-keypad__keyStateChanged(){
-  return keypad.keyStateChanged();
-}
-
 char
-keypad__getKeyPressed(){
-  if ( char key = keypad.getKey() )
-    return key;
-}
-
-unsigned char
-keypad__isAnyKeyPressed(){
-  if ( unsigned char key = keypad.keyStateChanged() )
-    return key;
+keypad__getKey(){
+  char key = keypad.getKey();
+  switch( key ){
+    case 49: return 1; break;
+    case 50: return 2; break;
+    case 52: return 4; break;
+    case 53: return 5; break;
+    default: break;
+  }
 }

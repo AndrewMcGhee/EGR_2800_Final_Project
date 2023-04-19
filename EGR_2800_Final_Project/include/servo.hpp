@@ -1,8 +1,8 @@
 #ifndef SERVO_H_
 #define SERVO_H_
 
-#define SERVO0  6
-#define SERVO1  9
+#define SERVO0  5
+#define SERVO1  6
 
 #include <Arduino.h>
 #include <Servo.h>
