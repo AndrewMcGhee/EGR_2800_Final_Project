@@ -15,9 +15,9 @@ void userLoses();
  * Globals
 ***************/
 //Variables:
-unsigned char isUserDone = 0; // Breaks all loops and makes program go back to beginning of loop()
 int Choice;
 const char* Question;
+
 // Objects:
 Servo servo0;  // create servo object to control a servo
 Servo servo1;  // create servo object to control a servo
@@ -28,9 +28,9 @@ setup() {
   Serial.begin( 9600 ); //FIXME: remove
   // Initializations:
   LCD__setup();
-  //servo__init( servo0, SERVO0, 0 ); // TODO: where should we define pins?
-  //servo__init( servo1, SERVO1, 90 );
-  //stepper__init();
+  servo__init( servo0, SERVO0, 0 );
+  servo__init( servo1, SERVO1, 90 );
+  stepper__init();
 }
 
 void
@@ -45,7 +45,7 @@ loop() {
       break;
 
     LCD__clear(); // Clear the screen of previous messages
-    //LCD__staticMessage( "Refill Machine", 0, 0 ); //FIXME: uncomment
+    LCD__staticMessage( "Refill Machine", 0, 0 );
     Serial.println( "Refill Machine" ); //FIXME: remove
     delay( 1000 );
   }
@@ -59,7 +59,7 @@ displayGreeting(){
 
   // Display greeting + wait for input
   while ( 1 ){
-      LCD__scrollWithStatic( "Welcome!", "Press 1 to Start", 300 ); //FIXME: uncomment
+      LCD__scrollWithStatic( "Welcome!", "Press 1 to Start", 300 );
       //Serial.println( "Welcome!\n Press 1 to Start" ); //FIXME: remove
       if( keypad__getKey() == 1 ){
         break;
@@ -103,41 +103,6 @@ pickGenre(){
       answerQuestion(Question, Choice);
       break;
     }
-
-
-    // Drop the ball to the first position  TODO: should we do this at some other point?
-    //servo__rotate( servo0, 0, 90 );
-
-    // Get user input
-    /*
-      // Would this be the place to make the ball move into position? Based on answer it would go back up or into collection.
-  
-    case 1:
-      // Get question from question selection + prompt user to answer
-
-      //answerQuestion(); //question goes here ;
-      break;
-
-    case 2:
-      // Get question from question selection + prompt user to answer
-      //answerQuestion(); //question goes here )
-      break;
-
-    case 4:
-      // Get question from question selection + prompt user to answer
-      //answerQuestion(); //question goes here
-      break;
-
-    case 5:
-      // Get question from question selection + prompt user to answer
-      //answerQuestion(); //question goes here
-      break;
-
-    default: break;
-    }
-    */
-    //if( isUserDone == 1 )
-    //  break;
   }
 }
 
@@ -145,6 +110,7 @@ void
 answerQuestion(const char* Question, int Answer){
   delay( 3000 ); // Gives the user time to let go of the button
   LCD__clear(); // Clear the screen of previous messages
+
   LCD__scrollWithStatic("1 True | 2 False", Question, 300);
   if (Answer == 1){
     while( 1 ){
@@ -170,23 +136,6 @@ answerQuestion(const char* Question, int Answer){
   }
 }
 
-  // Give user question
-  //while( 1 ){
-  //  LCD__scrollWithStatic( "1 True | 2 False", "Is my shirt white", 300 );
-  //
-  //  delay( 5000 );
-  //
-  //  userWins();
-    // Get user input
-    //if( keypad__getKeyPressed() == 1 ) //TODO: put correct answer here?
-    //  userWins();
-    //else
-    //  userLoses();
-
-   // if( isUserDone == 1 )
-   //   break;
-//}
-
 void
 userWins(){
   LCD__clear(); // Clear the screen of previous messages
@@ -195,6 +144,8 @@ userWins(){
   LCD__staticMessage( "Winner!", 0, 0 );
 
   // Dispense capsule
+  servo__rotate( servo0, 0, 90 );
+  delay( 8000 ); // Wait for ball to roll down track
   servo__rotate( servo1, 90, 180 ); // Run servo TODO: make sure this is correct
 
   delay( 5000 ); // Wait a little bit before resetting
@@ -208,6 +159,8 @@ userLoses(){
   LCD__staticMessage( "Loser!", 0, 0 );
 
   // Put capsule back
+  servo__rotate( servo0, 0, 90 );
+  delay( 8000 ); // Wait for ball to roll down track
   servo__rotate( servo1, 90, 0 ); // Run servo TODO: make sure this is correct
 
   while( ir__checkObstacle( SENSOR_PIN_1 ) != 1 ){
