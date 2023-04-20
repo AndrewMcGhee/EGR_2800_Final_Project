@@ -1,4 +1,4 @@
-//#include "include/Question_Selection.hpp"
+#include "include/Question_Selection.hpp"
 #include "include/LCD.hpp"
 #include "include/ir_sensor.hpp"
 #include "include/servo.hpp"
@@ -16,7 +16,8 @@ void userLoses();
 ***************/
 //Variables:
 unsigned char isUserDone = 0; // Breaks all loops and makes program go back to beginning of loop()
-
+int Choice;
+const char* Question;
 // Objects:
 Servo servo0;  // create servo object to control a servo
 Servo servo1;  // create servo object to control a servo
@@ -75,35 +76,40 @@ pickGenre(){
 
   // Prompt user to pick genre
   while( 1 ){
-    if( keypad__getKey() == 2 ){
-      answerQuestion();
-      break;
-    }
     LCD__scrollWithStatic( "Pick Genre:", "(1) Math (2) Geography", 300 );
-    if( keypad__getKey() == 2 ){
-      answerQuestion();
-      break;
-    }
-    LCD__clear(); // Clear the screen of previous messages
     LCD__scrollWithStatic( "Pick Genre:", "(4) Biology (5) Fun Trivia", 300 );
-    if( keypad__getKey() == 2 ){
-      answerQuestion();
-      break;
-    }
-    LCD__clear(); // Clear the screen of previous messages
 
-    if( keypad__getKey() == 2 ){
-      answerQuestion();
+    if( keypad__getKey() == 1 ){
+      Choice = random(1,2);
+      Question = SelectQuestionMath(Choice);
+      answerQuestion(Question, Choice);
       break;
     }
+    if( keypad__getKey() == 2 ){
+      Choice = random(1,2);
+      Question = SelectQuestionGeo(Choice);
+      answerQuestion(Question, Choice);
+      break;
+    }
+    if( keypad__getKey() == 4 ){
+      Choice = random(1,2);
+      Question = SelectQuestionBio(Choice);
+      answerQuestion(Question, Choice);
+      break;
+    }
+    if( keypad__getKey() == 5 ){
+      Choice = random(1,2);
+      Question = SelectQuestionTrivia(Choice);
+      answerQuestion(Question, Choice);
+      break;
+    }
+
 
     // Drop the ball to the first position  TODO: should we do this at some other point?
     //servo__rotate( servo0, 0, 90 );
 
     // Get user input
     /*
-    switch( keypad__getKeyPressed() ){
-
       // Would this be the place to make the ball move into position? Based on answer it would go back up or into collection.
   
     case 1:
@@ -136,29 +142,33 @@ pickGenre(){
 }
 
 void
-answerQuestion(){
+answerQuestion(const char* Question, int Answer){
   delay( 3000 ); // Gives the user time to let go of the button
   LCD__clear(); // Clear the screen of previous messages
-
-  while( 1 ){
-    if( keypad__getKey() == 1 ){
-      userWins();
-      break;
-    }else {
-       userLoses();
-       break;
-    }
-    LCD__scrollWithStatic( "1 True | 2 False", "The answer is true", 300 );
-
-    if( keypad__getKey() == 1 ){
-      userWins();
-      break;
-    }else {
-       userLoses();
-       break;
+  LCD__scrollWithStatic("1 True | 2 False", Question, 300);
+  if (Answer == 1){
+    while( 1 ){
+      if( keypad__getKey() == 1 ){
+        userWins();
+        break;
+      }else {
+        userLoses();
+        break;
+      }
     }
   }
-
+  else if (Answer == 2){
+    while ( 1 ){
+      if( keypad__getKey() == 2 ){
+        userWins();
+        break;
+      }else {
+        userLoses();
+        break;
+      }
+    }
+  }
+}
 
   // Give user question
   //while( 1 ){
@@ -175,7 +185,6 @@ answerQuestion(){
 
    // if( isUserDone == 1 )
    //   break;
-  }
 //}
 
 void
