@@ -29,7 +29,7 @@ setup() {
   // Initializations:
   LCD__setup();
   servo__init( servo0, SERVO0, 0 );
-  servo__init( servo1, SERVO1, 90 );
+  servo__init( servo1, SERVO1, 0 );
   stepper__init();
 }
 
@@ -59,11 +59,12 @@ displayGreeting(){
 
   // Display greeting + wait for input
   while ( 1 ){
-      LCD__scrollWithStatic( "Welcome!", "Press 1 to Start", 300 );
-      //Serial.println( "Welcome!\n Press 1 to Start" ); //FIXME: remove
       if( keypad__getKey() == 1 ){
         break;
       }
+
+      LCD__scrollWithStatic( "Welcome!", "Press 1 to Start", 300 );
+
   }
 
   pickGenre();
@@ -71,33 +72,35 @@ displayGreeting(){
 
 void
 pickGenre(){
-  delay( 1000 ); // Gives the user time to let go of the button
+  char currentKey = -1;
+
   LCD__clear(); // Clear the screen of previous messages
+  LCD__scrollWithStatic( "Pick Genre:", "(1) Math (2) Geography", 300 );
+  LCD__scrollWithStatic( "Pick Genre:", "(4) Biology (5) Fun Trivia", 300 );
 
   // Prompt user to pick genre
   while( 1 ){
-    LCD__scrollWithStatic( "Pick Genre:", "(1) Math (2) Geography", 300 );
-    LCD__scrollWithStatic( "Pick Genre:", "(4) Biology (5) Fun Trivia", 300 );
+    currentKey = keypad__getKey();
 
-    if( keypad__getKey() == 1 ){
+    if( currentKey == 1 ){
       Choice = random(1,2);
       Question = SelectQuestionMath(Choice);
       answerQuestion(Question, Choice);
       break;
     }
-    if( keypad__getKey() == 2 ){
+    if( currentKey == 2 ){
       Choice = random(1,2);
       Question = SelectQuestionGeo(Choice);
       answerQuestion(Question, Choice);
       break;
     }
-    if( keypad__getKey() == 4 ){
+    if( currentKey == 4 ){
       Choice = random(1,2);
       Question = SelectQuestionBio(Choice);
       answerQuestion(Question, Choice);
       break;
     }
-    if( keypad__getKey() == 5 ){
+    if( currentKey == 5 ){
       Choice = random(1,2);
       Question = SelectQuestionTrivia(Choice);
       answerQuestion(Question, Choice);
@@ -108,30 +111,30 @@ pickGenre(){
 
 void
 answerQuestion(const char* Question, int Answer){
-  delay( 3000 ); // Gives the user time to let go of the button
+  char currentKey = -1;
   LCD__clear(); // Clear the screen of previous messages
 
   LCD__scrollWithStatic("1 True | 2 False", Question, 300);
-  if (Answer == 1){
-    while( 1 ){
-      if( keypad__getKey() == 1 ){
+  while( 1 ){
+    currentKey = keypad__getKey();
+
+    if (Answer == 1){
+      if( currentKey == 1 ){
         userWins();
         break;
       }else {
         userLoses();
         break;
+        }
       }
-    }
-  }
-  else if (Answer == 2){
-    while ( 1 ){
-      if( keypad__getKey() == 2 ){
+    else if (Answer == 2){
+      if( currentKey == 2 ){
         userWins();
         break;
       }else {
         userLoses();
         break;
-      }
+        }
     }
   }
 }
