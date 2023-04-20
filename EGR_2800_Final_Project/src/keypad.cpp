@@ -19,10 +19,10 @@ char
 keypad__getKey(){
   char key = keypad.getKey();
   switch( key ){
-    case 49: return 1; break;
-    case 50: return 2; break;
-    case 52: return 4; break;
-    case 53: return 5; break;
+    case 49: Serial.println( "1" ); return 1; break;
+    case 50: Serial.println( "2" ); return 2; break;
+    case 52: Serial.println( "4" ); return 4; break;
+    case 53: Serial.println( "5" ); return 5; break;
     default: break;
   }
 }
